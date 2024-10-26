@@ -27,7 +27,7 @@
 }
 
 .popup input::placeholder {
-    color: #635B5B;
+    color: #635b5b;
     font-size: 16px;
 }
 
@@ -92,6 +92,7 @@
 }
 
 .overlay {
+    z-index: 3;
     position: fixed;
     top: 0;
     left: 0;
@@ -108,7 +109,7 @@
 
 .popup__input__error {
     border-width: 2px !important;
-    border-color: #E10505 !important;
+    border-color: #e10505 !important;
 }
 
 .popup__inputAndValidationMessage {
@@ -127,7 +128,7 @@
 .popup__validationMessage {
     position: absolute;
     background-color: #ffffff;
-    border: 1px solid #E10505;
+    border: 1px solid #e10505;
     border-radius: 10px;
     margin: 0;
     left: 450px;
@@ -145,7 +146,6 @@
     padding: 2px 10px;
     font-size: 20px;
     font-style: italic;
-
 }
 
 .none {
@@ -153,6 +153,6 @@
 }
 
 .popup__failure-message {
-    color: #E10505;
+    color: #e10505;
     text-align: center;
 }

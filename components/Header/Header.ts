@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-import AuthPopup from "../AuthPopup/AuthPopup" 
+import AuthPopup from "../AuthPopup/AuthPopup";
 
 interface HeaderCallbacks {
-    mainPage: () => void,
-    recomendPage: () => void,
-    bestPage: () => void,
+    mainPage: () => void;
+    recomendPage: () => void;
+    bestPage: () => void;
 }
 
 class Header {
-    #config
+    #config;
 
     constructor(headerCallbacks: HeaderCallbacks) {
         this.#config = {
@@ -17,46 +17,46 @@ class Header {
                 callback: headerCallbacks.mainPage,
             },
 
-            recomend: { 
+            recomend: {
                 callback: headerCallbacks.recomendPage,
             },
 
             best: {
                 callback: headerCallbacks.bestPage,
-            }
-        }
+            },
+        };
     }
 
-    #addHrefsListeners(){
-        Object.entries(this.#config).forEach(([name, {callback}])=>{
+    #addHrefsListeners() {
+        Object.entries(this.#config).forEach(([name, { callback }]) => {
             const href = document.getElementById(name);
-            href?.addEventListener('click', (e)=>{
+            href?.addEventListener("click", (e) => {
                 e.preventDefault();
                 callback();
-            })
-        })
+            });
+        });
     }
 
-    #addButtonEventListener(){
-        const authPopup = new AuthPopup();
-        const root = document.getElementById('root');
+    #addButtonEventListener() {
+        const root = document.getElementById("root");
 
-        const button = document.getElementById('login-button');
-        button?.addEventListener('click', (e)=>{
+        const button = document.getElementById("login-button");
+        button?.addEventListener("click", (e) => {
             e.preventDefault();
+            const authPopup = new AuthPopup();
             if (root) authPopup.render(root);
-        })
+        });
     }
 
-    #addEventListeners(){
+    #addEventListeners() {
         this.#addHrefsListeners();
         this.#addButtonEventListener();
     }
 
-    render(parent: HTMLElement){
-        const template = Handlebars.templates['Header.hbs'];
-        const header = document.createElement('header');
-        header.insertAdjacentHTML('afterbegin', template({}));
+    render(parent: HTMLElement) {
+        const template = Handlebars.templates["Header.hbs"];
+        const header = document.createElement("header");
+        header.insertAdjacentHTML("afterbegin", template({}));
         parent.appendChild(header);
 
         this.#addEventListeners();
