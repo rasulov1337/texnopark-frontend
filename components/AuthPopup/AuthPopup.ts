@@ -40,23 +40,11 @@ class AuthPopup {
             signup: {
                 authMessage: "Зарегистрироваться",
                 inputs: {
-                    name: {
-                        placeholder: "Полное имя",
-                        type: "text",
-                        minLen: 5,
-                        maxLen: 50,
-                    },
                     username: {
                         placeholder: "Логин",
                         type: "text",
                         minLen: 6,
                         maxLen: 20,
-                    },
-                    email: {
-                        placeholder: "Почта",
-                        type: "email",
-                        minLen: 3,
-                        maxLen: 40,
                     },
                     password: {
                         placeholder: "Пароль",
