@@ -1,4 +1,4 @@
-@import "components/Header/Header.css";
+@import "components/Header/Header.sass";
 
 * {
   margin: 0;
