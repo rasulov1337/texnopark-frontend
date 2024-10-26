@@ -4,6 +4,7 @@ import APIClient from "./modules/ApiClient";
 import Header from "./components/Header/Header";
 import "./components/precompiled-templates";
 import MainPage from "./components/MainPage/MainPage";
+import BookPage from "./components/BookPage/BookPage";
 
 import { BookCardData } from "./components/BookCard/BookCard";
 
@@ -23,7 +24,9 @@ function renderMainPage(): void {
 }
 
 function renderRecomendPage(): void {
-    console.log("me");
+    pageContainer.innerHTML = '';
+    const bookPage = new BookPage();
+    bookPage.render(pageContainer);
 }
 
 function renderBestPage(): void {

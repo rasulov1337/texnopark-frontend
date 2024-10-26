@@ -2,10 +2,16 @@
 @use "/components/BookCard/BookCard.sass";
 @use "/components/AuthPopup/AuthPopup.scss";
 @use "/components/MainPage/MainPage.sass";
+@use "/components/BookPage/BookPage.sass";
 
 @font-face {
     font-family: Inter;
     src: url("./fonts/Inter.ttf");
+}
+
+@font-face {
+    font-family: Parisienne-Regular;
+    src: url("./fonts/Parisienne-Regular.ttf");
 }
 
 * {
@@ -15,7 +21,6 @@
 
 body {
     font-family: Inter, Helvetica, sans-serif;
-    background-color: #ffffff;
     width: 80%;
     margin: 0 auto;
 }
