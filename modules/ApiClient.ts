@@ -2,10 +2,8 @@
 
 
 interface RegisterParams {
-    name: string;
     username: string;
     password: string;
-    email: string;
 }
 
 interface LoginParams {
@@ -34,13 +32,11 @@ const APIClient = {
         return Ajax.delete({ url, body });
     },
 
-    async register({ name, username, password, email }: RegisterParams) {
+    async register({ username, password }: RegisterParams) {
         const url = this.BASE_URL + '/auth/register';
         const body = {
-            name: name,
             username: username,
             password: password,
-            email: email,
         };
 
         return Ajax.post({ url, body });
