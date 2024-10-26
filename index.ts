@@ -9,14 +9,29 @@ const pageContainer = document.createElement('div');
 
 const headerCallbacks = {
     mainPage: renderMainPage,
+    recomendPage: renderRecomendPage,
+    bestPage: renderBestPage,
+    favouritesPage: renderFavouritesPage,
     profilePage: renderProfilePage,
 }
 
-function renderMainPage() {}
-
-function renderProfilePage() {
-
+function renderMainPage(): void {
+    console.log('me');  
 }
+
+function renderRecomendPage(): void {
+    console.log('me');  
+}
+
+function renderBestPage(): void {
+    console.log('me');  
+}
+
+function renderFavouritesPage(){
+    console.log('me');  
+}
+
+function renderProfilePage() {}
 
 const main = async () => {
     const header = new Header(headerCallbacks);
