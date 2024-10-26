@@ -1,7 +1,8 @@
 'use strict';
 
-import APIService from './src/modules/ApiClient';
-import Header from './src/components/Header/Header';
+import APIService from './modules/ApiClient';
+import Header from './components/Header/Header';
+import './components/precompiled-templates';
 
 const root = document.getElementById('root');
 const pageContainer = document.createElement('div');
@@ -26,3 +27,5 @@ const main = async () => {
 
     renderMainPage();
 };
+
+main();

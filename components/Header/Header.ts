@@ -8,7 +8,7 @@ class Header {
     }
 
     render(parent: HTMLElement){
-        const template = Handlebars.templates['header'];
+        const template = Handlebars.templates['Header.hbs'];
         parent.appendChild(template({}))
     }
 }
