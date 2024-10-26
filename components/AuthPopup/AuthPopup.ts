@@ -125,15 +125,11 @@ class AuthPopup {
     #validateRegistrationData(): boolean {
         const form = document.forms["auth-form"];
 
-        const nameInput = form.elements.name;
         const usernameInput = form.elements.username;
-        const emailInput = form.elements.email;
         const passwordInput = form.elements.password;
         const passwordRepeatInput = form.elements.passwordRepeat;
 
-        const nameValidInfo = Validation.validateName(nameInput);
         const usernameValidInfo = Validation.validateUsername(usernameInput);
-        const emailValidInfo = Validation.validateEmail(emailInput);
         const passwordValidInfo = Validation.validatePassword(passwordInput);
         const passwordRepeatValidInfo =
             Validation.validatePassword(passwordRepeatInput);
@@ -142,22 +138,10 @@ class AuthPopup {
             passwordRepeatInput
         );
 
-        if (!nameValidInfo.ok) {
-            this.showErrorMessage(nameInput, nameValidInfo.text);
-        } else {
-            this.hideErrorMsg(nameInput);
-        }
-
         if (!usernameValidInfo.ok) {
             this.showErrorMessage(usernameInput, usernameValidInfo.text);
         } else {
             this.hideErrorMsg(usernameInput);
-        }
-
-        if (!emailValidInfo.ok) {
-            this.showErrorMessage(emailInput, emailValidInfo.text);
-        } else {
-            this.hideErrorMsg(emailInput);
         }
 
         if (!passwordValidInfo.ok) {
@@ -183,9 +167,7 @@ class AuthPopup {
         }
 
         return (
-            nameValidInfo.ok &&
             usernameValidInfo.ok &&
-            emailValidInfo.ok &&
             passwordValidInfo.ok &&
             passwordRepeatValidInfo.ok &&
             passwordsValidInfo.ok
@@ -235,10 +217,8 @@ class AuthPopup {
         if (this.#currentState === "signup") {
             try {
                 const res = await APIClient.register({
-                    name: data["name"],
-                    username: data["username"],
-                    password: data["password"],
-                    email: data["email"],
+                    username: data['username'],
+                    password: data['password'],
                 });
 
                 if (res.ok) location.reload();
