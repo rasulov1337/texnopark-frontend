@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import APIClient from '../../modules/ApiClient';
-import Validation from '../../modules/Validation';
+import APIClient from "../../modules/ApiClient";
+import Validation from "../../modules/Validation";
 
 class AuthPopup {
     #config;
@@ -11,57 +11,69 @@ class AuthPopup {
      *
      * @param {('auth' | 'signup')} currentState
      */
-    constructor(currentState: 'auth' | 'signup' = 'auth') {
+    constructor(currentState: "auth" | "signup" = "auth") {
         this.#currentState = currentState;
-        document.body.classList.add('no-scroll');
+        document.body.classList.add("no-scroll");
 
         this.#config = {
             auth: {
-                authMessage: 'Войти в аккаунт',
+                authMessage: "Войти в аккаунт",
                 inputs: {
                     username: {
-                        placeholder: 'Логин',
-                        type: 'text',
+                        placeholder: "Логин",
+                        type: "text",
                         minLen: 5,
                         maxLen: 20,
                     },
                     password: {
-                        placeholder: 'Пароль',
-                        type: 'password',
+                        placeholder: "Пароль",
+                        type: "password",
                         minLen: 8,
                         maxLen: 16,
                     },
                 },
-                buttonText: 'Войти',
-                bottomText: 'Еще нет аккаунта?',
-                bottomAText: 'Создать',
+                buttonText: "Войти",
+                bottomText: "Еще нет аккаунта?",
+                bottomAText: "Создать",
             },
 
             signup: {
-                authMessage: 'Зарегистрироваться',
+                authMessage: "Зарегистрироваться",
                 inputs: {
+                    name: {
+                        placeholder: "Полное имя",
+                        type: "text",
+                        minLen: 5,
+                        maxLen: 50,
+                    },
                     username: {
-                        placeholder: 'Логин',
-                        type: 'text',
+                        placeholder: "Логин",
+                        type: "text",
                         minLen: 6,
                         maxLen: 20,
                     },
+                    email: {
+                        placeholder: "Почта",
+                        type: "email",
+                        minLen: 3,
+                        maxLen: 40,
+                    },
                     password: {
-                        placeholder: 'Пароль',
-                        type: 'password',
+                        placeholder: "Пароль",
+                        type: "password",
                         minLen: 8,
                         maxLen: 16,
                     },
                     passwordRepeat: {
-                        placeholder: 'Повторите пароль',
-                        type: 'password',
+                        placeholder: "Повторите пароль",
+                        type: "password",
                         minLen: 8,
                         maxLen: 16,
                     },
                 },
-                buttonText: 'Создать аккаунт',
-                bottomText: 'Уже есть аккаунт?',
-                bottomAText: 'Войти',
+                buttonText: "Создать аккаунт",
+                bottomText: "Уже есть аккаунт?",
+                bottomAText: "Войти",
             },
         };
     }
@@ -72,7 +84,7 @@ class AuthPopup {
      * @returns {boolean} прошла ли валидацию форма
      */
     #validateData(): boolean {
-        if (this.#currentState === 'auth') {
+        if (this.#currentState === "auth") {
             return this.#validateAuthData();
         }
         return this.#validateRegistrationData();
@@ -82,7 +94,7 @@ class AuthPopup {
      * @returns {boolean} прошла ли валидацию форма
      */
     #validateAuthData(): boolean {
-        const form = document.forms['auth-form'];
+        const form = document.forms["auth-form"];
 
         const usernameInput = form.elements.username;
         const passwordInput = form.elements.password;
@@ -111,7 +123,7 @@ class AuthPopup {
      * @returns {boolean} прошла ли валидацию форма
      */
     #validateRegistrationData(): boolean {
-        const form = document.forms['auth-form'];
+        const form = document.forms["auth-form"];
 
         const usernameInput = form.elements.username;
         const passwordInput = form.elements.password;
@@ -163,15 +175,15 @@ class AuthPopup {
     }
 
     showErrorMessage(inputElem: HTMLInputElement, errorMsg: string) {
-        inputElem.classList.add('popup__input__error');
+        inputElem.classList.add("popup__input__error");
         const exclamation = inputElem.parentElement!.querySelector(
-            '.popup__exclamation'
+            ".popup__exclamation"
         )!;
-        exclamation.classList.remove('none');
+        exclamation.classList.remove("none");
 
         const validationMessageContainer =
             inputElem.parentElement!.querySelector(
-                '.popup__validationMessage'
+                ".popup__validationMessage"
             )!;
 
         validationMessageContainer.textContent = errorMsg;
@@ -179,11 +191,11 @@ class AuthPopup {
 
     hideErrorMsg(inputElem: HTMLInputElement) {
         const parentElem = inputElem.parentElement!;
-        inputElem.classList.remove('popup__input__error');
+        inputElem.classList.remove("popup__input__error");
         parentElem
-            .querySelector('.popup__validationMessage')!
-            .classList.add('none');
-        parentElem.querySelector('.popup__exclamation')!.classList.add('none');
+            .querySelector(".popup__validationMessage")!
+            .classList.add("none");
+        parentElem.querySelector(".popup__exclamation")!.classList.add("none");
     }
 
     /**
@@ -202,7 +214,7 @@ class AuthPopup {
             data[name] = value;
         });
 
-        if (this.#currentState === 'signup') {
+        if (this.#currentState === "signup") {
             try {
                 const res = await APIClient.register({
                     username: data['username'],
@@ -211,26 +223,26 @@ class AuthPopup {
 
                 if (res.ok) location.reload();
                 else if (res.status === 409)
-                    this.#setFailureMessage('Такой аккаунт уже создан!');
-                else this.#setFailureMessage('Неизвестная ошибка на сервере');
+                    this.#setFailureMessage("Такой аккаунт уже создан!");
+                else this.#setFailureMessage("Неизвестная ошибка на сервере");
             } catch (err) {
-                this.#setFailureMessage('Неизвестная ошибка: ' + err.message);
+                this.#setFailureMessage("Неизвестная ошибка: " + err.message);
             }
             return;
         }
 
         APIClient.login({
-            username: data['username'],
-            password: data['password'],
+            username: data["username"],
+            password: data["password"],
         })
             .then((r) => {
                 if (r.ok) location.reload();
                 else {
-                    this.#setFailureMessage('Неверный логин или пароль!');
+                    this.#setFailureMessage("Неверный логин или пароль!");
                 }
             })
             .catch((err) => {
-                this.#setFailureMessage('Неизвестная ошибка: ' + err.message);
+                this.#setFailureMessage("Неизвестная ошибка: " + err.message);
             });
     }
 
@@ -240,19 +252,19 @@ class AuthPopup {
      */
     #setFailureMessage(message: string): void {
         const failureMessageElem = document.querySelector(
-            '.popup__failure-message'
+            ".popup__failure-message"
         );
 
         if (message === null) {
-            failureMessageElem?.classList.add('none');
+            failureMessageElem?.classList.add("none");
         }
-        failureMessageElem?.classList.remove('none');
+        failureMessageElem?.classList.remove("none");
         if (failureMessageElem) failureMessageElem.textContent = message;
     }
 
     #closeOverlay(parent: HTMLInputElement): void {
-        parent.querySelector('.overlay')?.remove();
-        document.body.classList.remove('no-scroll');
+        parent.querySelector(".overlay")?.remove();
+        document.body.classList.remove("no-scroll");
     }
 
     /**
@@ -261,8 +273,8 @@ class AuthPopup {
      *
      */
     render(parent: HTMLElement): void {
-        const template = Handlebars.templates['AuthPopup.hbs'];
-        const templateContainer = document.createElement('div');
+        const template = Handlebars.templates["AuthPopup.hbs"];
+        const templateContainer = document.createElement("div");
 
         const data = this.#config[this.#currentState];
 
@@ -274,47 +286,47 @@ class AuthPopup {
 
     #addEventListeners(parent: HTMLInputElement): void {
         // Close overlay
-        const form: HTMLFormElement = parent.querySelector('.popup')!;
+        const form: HTMLFormElement = parent.querySelector(".popup")!;
         form.onclick = (e) => e.stopPropagation();
         form.onsubmit = (e) => this.#onFormSubmit(e);
 
         parent
-            .querySelector('.close-cross')!
-            .addEventListener('click', () => this.#closeOverlay(parent));
+            .querySelector(".close-cross")!
+            .addEventListener("click", () => this.#closeOverlay(parent));
 
         parent
-            .querySelector('.overlay')!
-            .addEventListener('click', () => this.#closeOverlay(parent));
+            .querySelector(".overlay")!
+            .addEventListener("click", () => this.#closeOverlay(parent));
 
-        parent.querySelector('.popup__a')!.addEventListener('click', (e) => {
+        parent.querySelector(".popup__a")!.addEventListener("click", (e) => {
             e.preventDefault();
 
             const newPopupWindow = new AuthPopup(
-                this.#currentState === 'auth' ? 'signup' : 'auth'
+                this.#currentState === "auth" ? "signup" : "auth"
             );
-            parent.querySelector('.overlay')!.remove();
+            parent.querySelector(".overlay")!.remove();
             newPopupWindow.render(parent);
         });
 
         Array.prototype.forEach.call(
-            (parent.querySelector('#auth-form')!).elements,
+            parent.querySelector("#auth-form")!.elements,
             (element) => {
                 const exclamation = element.parentElement.querySelector(
-                    '.popup__exclamation'
+                    ".popup__exclamation"
                 );
 
                 if (exclamation === undefined) return;
 
                 const validationMessageContainer =
                     element.parentElement.querySelector(
-                        '.popup__validationMessage'
+                        ".popup__validationMessage"
                     );
 
                 exclamation.onmouseover = () =>
-                    validationMessageContainer.classList.remove('none');
+                    validationMessageContainer.classList.remove("none");
 
                 exclamation.onmouseout = () =>
-                    validationMessageContainer.classList.add('none');
+                    validationMessageContainer.classList.add("none");
             }
         );
     }
