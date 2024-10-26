@@ -2,6 +2,7 @@
 
 class Header {
     #headerCallbacks
+    #config
 
     constructor(headerCallbacks: any) {
         this.#headerCallbacks = headerCallbacks
