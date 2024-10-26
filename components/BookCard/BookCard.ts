@@ -12,7 +12,6 @@ class BookCard {
     constructor(data: BookCardData) {
         const template = Handlebars.templates["BookCard.hbs"];
         this.#templateContainer = document.createElement("div");
-        this.#templateContainer.style.display = "inline-block";
         this.#templateContainer.innerHTML = template(data);
 
         this.#addEventListeners();

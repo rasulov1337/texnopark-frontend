@@ -1,6 +1,6 @@
 "use strict";
 
-import APIService from "./modules/ApiClient";
+import APIClient from "./modules/ApiClient";
 import Header from "./components/Header/Header";
 import "./components/precompiled-templates";
 import MainPage from "./components/MainPage/MainPage";
@@ -44,11 +44,14 @@ const main = async () => {
     root?.appendChild(pageContainer);
 
     const data = [] as BookCardData[];
-    for (let i = 0; i < 20; ++i) {
+    const f = await APIClient.getBooks();
+    const fetchedData = await f.json();
+    console.log(fetchedData);
+    for (const d of fetchedData) {
         data.push({
-            image: "https://www.gutenberg.org/cache/epub/72980/pg72980.cover.medium.jpg",
-            authorName: "Author Name",
-            bookTitle: `Book Title ${i + 1}`,
+            image: d.photo_url,
+            authorName: d.author_name,
+            bookTitle: d.book_name,
         });
     }
 
