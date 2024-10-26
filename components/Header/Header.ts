@@ -9,7 +9,9 @@ class Header {
 
     render(parent: HTMLElement){
         const template = Handlebars.templates['Header.hbs'];
-        parent.appendChild(template({}))
+        const header = document.createElement('header');
+        header.insertAdjacentHTML('afterbegin', template({}));
+        parent.appendChild(header);
     }
 }
 

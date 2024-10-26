@@ -24,8 +24,6 @@ const main = async () => {
 
     pageContainer.classList.add('page-container');
     root?.appendChild(pageContainer);
-
-    renderMainPage();
 };
 
 main();
