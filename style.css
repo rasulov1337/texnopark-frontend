@@ -1,4 +1,5 @@
 @import "components/Header/Header.sass";
+@import "components/AuthPopup/AuthPopup.scss";
 
 * {
   margin: 0;

@@ -1,5 +1,7 @@
 'use strict';
 
+import AuthPopup from "../AuthPopup/AuthPopup" 
+
 interface HeaderCallbacks {
     mainPage: () => void,
     recomendPage: () => void,
@@ -25,7 +27,7 @@ class Header {
         }
     }
 
-    #addEventListeners(){
+    #addHrefsListeners(){
         Object.entries(this.#config).forEach(([name, {callback}])=>{
             const href = document.getElementById(name);
             href?.addEventListener('click', (e)=>{
@@ -33,6 +35,22 @@ class Header {
                 callback();
             })
         })
+    }
+
+    #addButtonEventListener(){
+        const authPopup = new AuthPopup();
+        const root = document.getElementById('root');
+
+        const button = document.getElementById('login-button');
+        button?.addEventListener('click', (e)=>{
+            e.preventDefault();
+            if (root) authPopup.render(root);
+        })
+    }
+
+    #addEventListeners(){
+        this.#addHrefsListeners();
+        this.#addButtonEventListener();
     }
 
     render(parent: HTMLElement){
