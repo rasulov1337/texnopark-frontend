@@ -23,6 +23,13 @@ import Ajax from "./Ajax.ts";
 const APIClient = {
     BASE_URL: `http://${window.location.hostname}:8000`,
 
+    async getProfileInfo(id: number) {
+        const url = this.BASE_URL + `/authors/${id}/description/`;
+        const response = await Ajax.get(url);
+        const data = await response.json();
+        return data;
+    },
+
     async getBooks(params: GetBooksQueryParameter): Promise<BookCardData[]> {
         let url = this.BASE_URL + `/books?start_id=${params.startId}`;
         if (params.bookName) {
@@ -81,9 +88,9 @@ const APIClient = {
     async setRating(id: number, mark: number) {
         const url = this.BASE_URL + `/books/${id}/rate_book/`;
         const body = {
-            rating: mark
+            rating: mark,
         };
-        return Ajax.post({url, body});
+        return Ajax.post({ url, body });
     },
 
     async login({ username, password }: LoginParams) {

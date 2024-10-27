@@ -8,6 +8,7 @@ import BestsellersPage from "./components/BestsellersPage/BestsellersPage";
 
 import { BookCardData } from "./modules/Types";
 import ReadBooksPage from "./components/ReadBooksPage/ReadBooksPage";
+import AuthorPage from "./components/AuthorPage/AuthorPage";
 
 const root = document.getElementById("root");
 const pageContainer = document.createElement("div");
@@ -59,7 +60,11 @@ function renderFavouritesPage() {
     console.log("me");
 }
 
-function renderProfilePage() {}
+async function renderProfilePage() {
+    const profileData = await APIClient.getProfileInfo(1);
+    const page = new AuthorPage(profileData);
+    pageContainer.appendChild(page.root);
+}
 
 async function renderReadBooksPage() {
     pageContainer.replaceChildren();
