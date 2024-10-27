@@ -61,7 +61,7 @@ function renderProfilePage() {}
 
 const main = async () => {
     const header = new Header(headerCallbacks);
-    if (root) header.render(root);
+    if (root) await header.render(root);
 
     pageContainer.classList.add("page-container");
     root?.appendChild(pageContainer);

@@ -209,16 +209,16 @@ class AuthPopup {
                     password: data['password'],
                 });
 
-                if (res.ok) location.reload();
+                if (res.ok) {}
                 else if (res.status === 409)
                     this.#setFailureMessage("Такой аккаунт уже создан!");
                 else this.#setFailureMessage("Неизвестная ошибка на сервере");
             } catch (err) {
                 this.#setFailureMessage("Неизвестная ошибка: " + err.message);
             }
-            return;
         }
 
+        console.log('there')
         APIClient.login({
             username: data["username"],
             password: data["password"],

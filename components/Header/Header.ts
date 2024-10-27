@@ -31,7 +31,6 @@ class Header {
         };
 
         this.#activeHeaderHref = 'main';
-        this.#getSession();
     }
 
     async #getSession(){
@@ -81,9 +80,10 @@ class Header {
         this.#addButtonEventListener();
     }
 
-    render(parent: HTMLElement) {
+    async render(parent: HTMLElement) {
         const template = Handlebars.templates["Header.hbs"];
         const header = document.createElement("header");
+        await this.#getSession();
         console.log(this.#isAuth)
         header.insertAdjacentHTML("afterbegin", template({isAuth: this.#isAuth}));
         parent.appendChild(header);
