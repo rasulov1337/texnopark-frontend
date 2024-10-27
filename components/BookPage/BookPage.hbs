@@ -1,31 +1,76 @@
 <div id="content" class="content">
     <div class="content__information">
         <div class="content__information__img-container">
-            <img src="{{this.photo}}" class="content__information__img-container__img">
+            <img
+                src="{{this.photo}}"
+                class="content__information__img-container__img"
+            />
         </div>
         <div class="content__information__info">
             <p class="content__information__info__title">{{this.name}}</p>
-            <p class="content__information__info__p">Автор: {{this.author}}</p>
-            <p class="content__information__info__p">Рейтинг читателей: {{this.rating}}</p>
+            <p
+                id="{{this.author.id}}"
+                class="content__information__info__p js-author"
+            >Автор:
+                {{this.author.name}}</p>
+            <p class="content__information__info__p">Рейтинг читателей:
+                {{this.rating}}</p>
             <form id="form" class="content__information__form">
                 <p class="content__information__info__p">Ваша оценка: </p>
                 <fieldset class="content__information__form__fieldset">
                     <span class="content__information__form__star-cb-group">
-                        <input type="radio" id="rating-5" name="rating" value="5" /><label for="rating-5">5</label>
-                        <input type="radio" id="rating-4" name="rating" value="4" /><label for="rating-4">4</label>
-                        <input type="radio" id="rating-3" name="rating" value="3" /><label for="rating-3">3</label>
-                        <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
-                        <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
-                        <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                        <input
+                            type="radio"
+                            id="rating-5"
+                            name="rating"
+                            value="5"
+                        /><label for="rating-5">5</label>
+                        <input
+                            type="radio"
+                            id="rating-4"
+                            name="rating"
+                            value="4"
+                        /><label for="rating-4">4</label>
+                        <input
+                            type="radio"
+                            id="rating-3"
+                            name="rating"
+                            value="3"
+                        /><label for="rating-3">3</label>
+                        <input
+                            type="radio"
+                            id="rating-2"
+                            name="rating"
+                            value="2"
+                        /><label for="rating-2">2</label>
+                        <input
+                            type="radio"
+                            id="rating-1"
+                            name="rating"
+                            value="1"
+                        /><label for="rating-1">1</label>
+                        <input
+                            type="radio"
+                            id="rating-0"
+                            name="rating"
+                            value="0"
+                            class="star-cb-clear"
+                        /><label for="rating-0">0</label>
                     </span>
                 </fieldset>
             </form>
         </div>
     </div>
-    
+
     <div class="content__read-online">
         <p class="content__read-online__title">Читать онлайн</p>
-        <a><img id="arrow" src="../../images/svg/arrow-right.svg" width="30px" height="30px" class="content__read-online__arrow"></a>
+        <a><img
+                id="arrow"
+                src="../../images/svg/arrow-right.svg"
+                width="30px"
+                height="30px"
+                class="content__read-online__arrow"
+            /></a>
     </div>
     <textarea id="text" class="content__text hide"></textarea>
 </div>
