@@ -1,8 +1,8 @@
-@use "/components/Header/Header.sass";
-@use "/components/BookCard/BookCard.sass";
-@use "/components/AuthPopup/AuthPopup.scss";
-@use "/components/MainPage/MainPage.sass";
-@use "/components/BookPage/BookPage.sass";
+@use "components/Header/Header.sass";
+@use "components/BookCard/BookCard.sass";
+@use "components/AuthPopup/AuthPopup.sass";
+@use "components/MainPage/MainPage.sass";
+@use "components/BookPage/BookPage.sass";
 
 @font-face {
     font-family: Inter;
