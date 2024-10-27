@@ -20,21 +20,13 @@ const headerCallbacks = {
 };
 
 async function renderMainPage(): Promise<void> {
-    pageContainer.innerHTML = '';
-    document.body.classList.remove('body-grey');
-    const data = [] as BookCardData[];
-    const f = await APIClient.getBooks();
-    const fetchedData = await f.json();
-    console.log(fetchedData);
-    for (const d of fetchedData) {
-        data.push({
-            image: d.photo_url,
-            authorName: d.author_name,
-            bookTitle: d.book_name,
+    pageContainer.innerHTML = "";
+    document.body.classList.remove("body-grey");
+    const booksData = await APIClient.getBooks({
+        startId: 0,
         });
-    }
 
-    const mainPage = new MainPage(data);
+    const mainPage = new MainPage(booksData);
     mainPage.render(pageContainer);
 }
 

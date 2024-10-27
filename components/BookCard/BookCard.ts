@@ -1,10 +1,5 @@
 "use strict";
-
-export interface BookCardData {
-    image: string;
-    authorName: string;
-    bookTitle: string;
-}
+import { BookCardData } from "../../modules/Types";
 
 class BookCard {
     #templateContainer: HTMLDivElement;
