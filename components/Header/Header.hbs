@@ -1,15 +1,17 @@
 <div class="header">
     <div class="header__logo-container">
-        <img src="../../images/logo.png" class="header__logo-container__img">
+        <img src="../../images/logo.png" class="header__logo-container__img" />
     </div>
 
     <div class="header__links">
         <div class="header__links__component">
             <a id="main">Главная</a>
         </div>
-        <div class="header__links__component">
-            <a id="recomend">Рекомендации</a>
-        </div>
+        {{#if isAuth}}
+            <div class="header__links__component">
+                <a id="recomend">Рекомендации</a>
+            </div>
+        {{/if}}
         <div class="header__links__component">
             <a id="best">Бестселлеры</a>
         </div>
@@ -18,11 +20,21 @@
     <div class="header__account-container">
         {{#if isAuth}}
             <div class="header__account-container__auth">
-                <img src="../../images/default_user_icon.png" width="50px" height="50px">
-                <button id="logout-button" class="header__account-container__button">Выйти</button>
+                <img
+                    src="../../images/default_user_icon.png"
+                    width="50px"
+                    height="50px"
+                />
+                <button
+                    id="logout-button"
+                    class="header__account-container__button"
+                >Выйти</button>
             </div>
         {{else}}
-            <button id="login-button" class="header__account-container__button">Войти</button>
+            <button
+                id="login-button"
+                class="header__account-container__button"
+            >Войти</button>
         {{/if}}
     </div>
 </div>
