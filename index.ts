@@ -38,7 +38,7 @@ async function renderRecomendPage(): Promise<void> {
     document.body.classList.remove("body-grey");
     const booksData = await APIClient.getRecommendations();
 
-    const page = new BestsellersPage(booksData);
+    const page = new BestsellersPage(booksData, "Рекомендации");
     page.render(pageContainer);
 }
 
@@ -51,7 +51,7 @@ async function renderBestPage(): Promise<void> {
         best: true,
     });
 
-    const page = new BestsellersPage(booksData);
+    const page = new BestsellersPage(booksData, "Бестселлеры");
     page.render(pageContainer);
 }
 
@@ -63,6 +63,7 @@ function renderProfilePage() {}
 
 async function renderReadBooksPage() {
     pageContainer.replaceChildren();
+    document.body.classList.remove("body-grey");
     const data = await APIClient.getReadBooks();
     const page = new ReadBooksPage(data);
     pageContainer.appendChild(page.root);

@@ -7,13 +7,14 @@ import { BookCardData } from "../../modules/Types";
 class BestsellersPage {
     #templateContainer: HTMLDivElement;
     #booksContainer: HTMLDivElement;
+    #title: string
 
-    constructor(books: BookCardData[]) {
-        console.log("books", books);
+    constructor(books: BookCardData[], title: string) {
+    this.#title = title
         const template = Handlebars.templates["BestsellersPage.hbs"];
         this.#templateContainer = document.createElement("div");
 
-        this.#templateContainer.innerHTML = template(books);
+        this.#templateContainer.innerHTML = template({books:books, title: this.#title});
 
         this.#booksContainer = this.#templateContainer.querySelector(
             ".js-books-container"
