@@ -74,8 +74,16 @@ const APIClient = {
     },
 
     async getText(id: number) {
-        const url = `https://www.gutenberg.org/cache/epub/${id}/pg${id}.txt`;
+        const url = this.BASE_URL + `/books/${id}/fetch/`;
         return Ajax.get(url);
+    },
+
+    async setRating(id: number, mark: number) {
+        const url = this.BASE_URL + `/books/${id}/rate_book/`;
+        const body = {
+            rating: mark
+        };
+        return Ajax.post({url, body});
     },
 
     async login({ username, password }: LoginParams) {

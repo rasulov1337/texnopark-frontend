@@ -33,7 +33,7 @@ async function renderMainPage(): Promise<void> {
 
 async function renderRecomendPage(): Promise<void> {
     pageContainer.replaceChildren();
-
+    document.body.classList.remove("body-grey");
     const booksData = await APIClient.getRecommendations();
 
     const page = new BestsellersPage(booksData);

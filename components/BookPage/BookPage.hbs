@@ -7,7 +7,7 @@
             <p class="content__information__info__title">{{this.name}}</p>
             <p class="content__information__info__p">Автор: {{this.author}}</p>
             <p class="content__information__info__p">Рейтинг читателей: {{this.rating}}</p>
-            <form class="content__information__form">
+            <form id="form" class="content__information__form">
                 <p class="content__information__info__p">Ваша оценка: </p>
                 <fieldset class="content__information__form__fieldset">
                     <span class="content__information__form__star-cb-group">
@@ -27,5 +27,5 @@
         <p class="content__read-online__title">Читать онлайн</p>
         <a><img id="arrow" src="../../images/svg/arrow-right.svg" width="30px" height="30px" class="content__read-online__arrow"></a>
     </div>
-    <div id="text" class="content__text"></div>
+    <textarea id="text" class="content__text hide"></textarea>
 </div>

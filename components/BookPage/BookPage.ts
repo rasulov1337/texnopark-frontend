@@ -33,9 +33,6 @@ class BookPage {
 
     constructor(data: ResponseData){
         this.#showText = false;
-        console.log(data)
-
-        this.#getText(data.id);
         this.#id = data.id;
         this.#name = data.name;
         this.#author = data.author.name;
@@ -46,22 +43,57 @@ class BookPage {
     async #getText(id: number){
         const response = await APIClient.getText(id);
         if (response.ok){
-            console.log('well')
+            this.#text = await response.json()
         } 
     }
 
-    #renderText(){
-        // this.#showText = !this.#showText;
-        // const arrow = document.getElementById('arrow');
-        // const textContainer = document.getElementById('text')
-        // if (this.#showText) {
-        //     if (arrow) arrow.style.transform = 'rotate(90deg)';
-        //     if (textContainer) textContainer.textContent = this.#text;
-        // } else {
-        //     if (arrow) arrow.style.transform = 'rotate(0deg)';
-        //     if (textContainer) textContainer.textContent = '';
-        // }
-        window.open(`https://www.gutenberg.org/cache/epub/${this.#id}/pg${this.#id}.txt`, '_blank');
+    async #renderText(){
+        this.#showText = !this.#showText;
+        const arrow = document.getElementById('arrow');
+        const textContainer = document.getElementById('text');
+        await this.#getText(this.#id);
+        
+        if (this.#showText) {
+            if (arrow) arrow.style.transform = 'rotate(90deg)';
+            if (textContainer){
+                textContainer.classList.remove('hide');
+                textContainer.classList.add('show');
+                textContainer.value = this.#text;
+                this.#autoResizeTextarea(textContainer);
+            }
+        } else {
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+            if (textContainer){
+                textContainer.classList.remove('show');
+                textContainer.classList.add('hide');
+                textContainer.value = '';
+            } 
+        }
+    }
+
+    #autoResizeTextarea(textarea) {
+        textarea.style.height = 'auto'; 
+        textarea.style.height = `${textarea.scrollHeight}px`; 
+    }
+
+    #addOnChangeForm() {
+        const form = document.getElementById('form');
+        const stars = document.getElementsByName('rating');
+    
+        form?.addEventListener('change', async (e) => {
+            e.preventDefault();
+            let rating = null;
+            stars.forEach((star) => {
+                if (star.checked) {
+                    rating = star.value;
+                }
+            });
+
+            const response = await APIClient.setRating(this.#id, rating);
+            if (response.ok){
+                console.log('success');
+            }
+        });
     }
 
     #addEventListeners(){
@@ -83,7 +115,9 @@ class BookPage {
             text: this.#text
         } as BookData
         parent.insertAdjacentHTML('afterbegin', template(data));
+
         this.#addEventListeners();
+        this.#addOnChangeForm();
     }
 }
 
