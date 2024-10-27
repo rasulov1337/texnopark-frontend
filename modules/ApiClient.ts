@@ -46,6 +46,13 @@ const APIClient = {
         return res;
     },
 
+    async getReadBooks(): Promise<void> {
+        const url = this.BASE_URL + "/users/books/";
+        const response = await Ajax.get(url);
+        const data = await response.json();
+        return data;
+    },
+
     async getBook(id: number) {
         const url = this.BASE_URL + "/books/" + id;
         return Ajax.get(url);

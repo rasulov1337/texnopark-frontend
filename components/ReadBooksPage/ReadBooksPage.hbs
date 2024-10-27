@@ -1,0 +1,18 @@
+<div>
+    <h1>Список оцененных книг</h1>
+    <ul class="read-books-list">
+        {{#each books}}
+            <li class="read-book">
+                <img
+                    class="read-book__book-img"
+                    src="https://www.gutenberg.org/cache/epub/{{this.book_id.id}}/pg{{this.book_id.id}}.cover.medium.jpg"
+                />
+                <div class="read-book__text-info-container">
+                    <p class="read-book__author">{{this.book_id.author}}</p>
+                    <p class="read-book__title">{{this.book_id.name}}</p>
+                    <p>Ваша оценка: {{this.ratingStars}}</p>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+</div>

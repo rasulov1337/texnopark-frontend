@@ -3,6 +3,7 @@
 @use "components/AuthPopup/AuthPopup.sass";
 @use "components/MainPage/MainPage.sass";
 @use "components/BookPage/BookPage.sass";
+@use "components/ReadBooksPage/ReadBooksPage.sass";
 
 @font-face {
     font-family: Inter;
@@ -21,6 +22,6 @@
 
 body {
     font-family: Inter, Helvetica, sans-serif;
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
 }
