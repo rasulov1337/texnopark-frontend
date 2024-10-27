@@ -1,5 +1,8 @@
 "use strict";
+
 import { BookCardData } from "../../modules/Types";
+import APIClient from "../../modules/ApiClient";
+import BookPage from "../BookPage/BookPage";
 
 class BookCard {
     #templateContainer: HTMLDivElement;
@@ -15,8 +18,14 @@ class BookCard {
     #addEventListeners() {
         this.#templateContainer
             .querySelector(".js-book-card")
-            ?.addEventListener("click", () => {
-                console.log("I was clicked");
+            ?.addEventListener("click", async (e) => {
+                const pageContainer = document.getElementById('page-container');
+                if (pageContainer){
+                    pageContainer.innerHTML = '';
+                    const data = await APIClient.getBook(e.target.id);
+                    const bookPage = new BookPage(await data.json());
+                    bookPage.render(pageContainer);
+                }
             });
     }
 

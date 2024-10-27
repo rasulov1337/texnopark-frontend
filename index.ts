@@ -4,12 +4,12 @@ import APIClient from "./modules/ApiClient";
 import Header from "./components/Header/Header";
 import "./components/precompiled-templates";
 import MainPage from "./components/MainPage/MainPage";
-import BookPage from "./components/BookPage/BookPage";
 
-import { BookCardData } from "./components/BookCard/BookCard";
+import { BookCardData } from "./modules/Types";
 
 const root = document.getElementById("root");
 const pageContainer = document.createElement("div");
+pageContainer.id = 'page-container';
 
 const headerCallbacks = {
     mainPage: renderMainPage,
@@ -32,8 +32,6 @@ async function renderMainPage(): Promise<void> {
 
 function renderRecomendPage(): void {
     pageContainer.innerHTML = '';
-    const bookPage = new BookPage();
-    bookPage.render(pageContainer);
 }
 
 function renderBestPage(): void {

@@ -1,6 +1,8 @@
 "use strict";
 
 import AuthPopup from "../AuthPopup/AuthPopup";
+import { isAuthorized } from "../../modules/IsAuthorized";
+import APIClient from "../../modules/ApiClient";
 
 interface HeaderCallbacks {
     mainPage: () => void;
@@ -11,6 +13,7 @@ interface HeaderCallbacks {
 class Header {
     #config;
     #activeHeaderHref: 'main' | 'recomend' | 'best';
+    #isAuth: boolean;
 
     constructor(headerCallbacks: HeaderCallbacks) {
         this.#config = {
@@ -28,7 +31,13 @@ class Header {
         };
 
         this.#activeHeaderHref = 'main';
+        this.#getSession();
     }
+
+    async #getSession(){
+        this.#isAuth = await isAuthorized();
+    }
+    
 
     #changeActiveHeaderHref(newActive: string){
         document.getElementById(this.#activeHeaderHref)?.classList.remove('active-header-href');
@@ -56,6 +65,15 @@ class Header {
             const authPopup = new AuthPopup();
             if (root) authPopup.render(root);
         });
+
+        const logoutButton = document.getElementById("logout-button");
+        logoutButton?.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const response = await APIClient.logout();
+            if (response.ok) {
+                window.location.reload();
+            }
+        });
     }
 
     #addEventListeners() {
@@ -66,7 +84,8 @@ class Header {
     render(parent: HTMLElement) {
         const template = Handlebars.templates["Header.hbs"];
         const header = document.createElement("header");
-        header.insertAdjacentHTML("afterbegin", template({}));
+        console.log(this.#isAuth)
+        header.insertAdjacentHTML("afterbegin", template({isAuth: this.#isAuth}));
         parent.appendChild(header);
 
         this.#addEventListeners();

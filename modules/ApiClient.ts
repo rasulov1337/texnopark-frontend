@@ -40,8 +40,19 @@ const APIClient = {
         return res;
     },
 
+    async getBook(id: number){
+        const url = this.BASE_URL + "/books/" + id;
+        return Ajax.get(url);
+    },
+
+    async getText(id: number){
+        const url = `https://www.gutenberg.org/cache/epub/${id}/pg${id}.txt`
+        return Ajax.get(url);
+    },
+
+
     async login({ username, password }: LoginParams) {
-        const url = this.BASE_URL + "/auth/login";
+        const url = this.BASE_URL + "/users/authentication/";
         const body = {
             username: username,
             password: password,
@@ -50,13 +61,13 @@ const APIClient = {
     },
 
     async logout() {
-        const url = this.BASE_URL + "/auth/logout";
+        const url = this.BASE_URL + "/users/deauthorization/";
         const body = {};
-        return Ajax.delete({ url, body });
+        return Ajax.post({ url, body });
     },
 
     async register({ username, password }: RegisterParams) {
-        const url = this.BASE_URL + "/auth/register";
+        const url = this.BASE_URL + "/users/registration/";
         const body = {
             username: username,
             password: password,

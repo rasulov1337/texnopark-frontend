@@ -9,14 +9,16 @@ interface RequestParams {
     url: string;
     body?: object;
     method: string;
+    noCORSMode?: boolean;
 }
 
 
 class Ajax {
-    static get(url: string): Promise<any> {
+    static get(url: string, noCORSMode = false): Promise<any> {
         return this.#makeRequest({
             method: 'GET',
             url: url,
+            noCORSMode: noCORSMode,
         });
     }
 
