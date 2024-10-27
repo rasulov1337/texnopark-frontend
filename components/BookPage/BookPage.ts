@@ -30,6 +30,7 @@ class BookPage {
     #photo: string;
     #text: string;
     #showText: true | false;
+    #userRating: number;
 
     constructor(data: ResponseData){
         this.#showText = false;
@@ -38,6 +39,8 @@ class BookPage {
         this.#author = data.author.name;
         this.#rating = data.rating;
         this.#photo = `https://www.gutenberg.org/cache/epub/${this.#id}/pg${this.#id}.cover.medium.jpg`;
+        this.#userRating = data.user_rating;
+        console.log(this.#userRating);
     }
 
     async #getText(id: number){
@@ -118,6 +121,7 @@ class BookPage {
 
         this.#addEventListeners();
         this.#addOnChangeForm();
+        document.getElementById(`rating-${this.#userRating}`).checked = true;
     }
 }
 
