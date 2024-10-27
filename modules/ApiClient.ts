@@ -15,6 +15,7 @@ interface LoginParams {
 interface GetBooksQueryParameter {
     startId: number;
     bookName?: string;
+    best?: boolean;
 }
 
 import Ajax from "./Ajax.ts";
@@ -27,6 +28,11 @@ const APIClient = {
         if (params.bookName) {
             url += `&book_name=${params.bookName}`;
         }
+
+        if (params.best) {
+            url += "&best=true";
+        }
+
         const response = await Ajax.get(url);
         const data = await response.json();
         const res = [] as BookCardData[];
@@ -40,16 +46,30 @@ const APIClient = {
         return res;
     },
 
-    async getBook(id: number){
+    async getBook(id: number) {
         const url = this.BASE_URL + "/books/" + id;
         return Ajax.get(url);
     },
 
-    async getText(id: number){
-        const url = `https://www.gutenberg.org/cache/epub/${id}/pg${id}.txt`
-        return Ajax.get(url);
+    async getRecommendations() {
+        const url = this.BASE_URL + "/books/recommendations/";
+        const response = await Ajax.get(url);
+        const data = await response.json();
+        const res = [];
+        for (const bookData of data) {
+            res.push({
+                id: bookData.id,
+                authorName: bookData.author,
+                bookTitle: bookData.name,
+            });
+        }
+        return res;
     },
 
+    async getText(id: number) {
+        const url = `https://www.gutenberg.org/cache/epub/${id}/pg${id}.txt`;
+        return Ajax.get(url);
+    },
 
     async login({ username, password }: LoginParams) {
         const url = this.BASE_URL + "/users/authentication/";

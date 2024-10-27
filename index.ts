@@ -4,12 +4,13 @@ import APIClient from "./modules/ApiClient";
 import Header from "./components/Header/Header";
 import "./components/precompiled-templates";
 import MainPage from "./components/MainPage/MainPage";
+import BestsellersPage from "./components/BestsellersPage/BestsellersPage";
 
 import { BookCardData } from "./modules/Types";
 
 const root = document.getElementById("root");
 const pageContainer = document.createElement("div");
-pageContainer.id = 'page-container';
+pageContainer.id = "page-container";
 
 const headerCallbacks = {
     mainPage: renderMainPage,
@@ -24,19 +25,32 @@ async function renderMainPage(): Promise<void> {
     document.body.classList.remove("body-grey");
     const booksData = await APIClient.getBooks({
         startId: 0,
-        });
+    });
 
     const mainPage = new MainPage(booksData);
     mainPage.render(pageContainer);
 }
 
-function renderRecomendPage(): void {
-    pageContainer.innerHTML = '';
+async function renderRecomendPage(): Promise<void> {
+    pageContainer.replaceChildren();
+
+    const booksData = await APIClient.getRecommendations();
+
+    const page = new BestsellersPage(booksData);
+    page.render(pageContainer);
 }
 
-function renderBestPage(): void {
-    pageContainer.innerHTML = '';
-    document.body.classList.remove('body-grey');
+async function renderBestPage(): Promise<void> {
+    pageContainer.replaceChildren();
+    document.body.classList.remove("body-grey");
+
+    const booksData = await APIClient.getBooks({
+        startId: 0,
+        best: true,
+    });
+
+    const page = new BestsellersPage(booksData);
+    page.render(pageContainer);
 }
 
 function renderFavouritesPage() {
