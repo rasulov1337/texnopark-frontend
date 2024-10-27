@@ -19,8 +19,23 @@ const headerCallbacks = {
     profilePage: renderProfilePage,
 };
 
-function renderMainPage(): void {
-    console.log("me");
+async function renderMainPage(): Promise<void> {
+    pageContainer.innerHTML = '';
+    document.body.classList.remove('body-grey');
+    const data = [] as BookCardData[];
+    const f = await APIClient.getBooks();
+    const fetchedData = await f.json();
+    console.log(fetchedData);
+    for (const d of fetchedData) {
+        data.push({
+            image: d.photo_url,
+            authorName: d.author_name,
+            bookTitle: d.book_name,
+        });
+    }
+
+    const mainPage = new MainPage(data);
+    mainPage.render(pageContainer);
 }
 
 function renderRecomendPage(): void {
@@ -30,7 +45,8 @@ function renderRecomendPage(): void {
 }
 
 function renderBestPage(): void {
-    console.log("me");
+    pageContainer.innerHTML = '';
+    document.body.classList.remove('body-grey');
 }
 
 function renderFavouritesPage() {
@@ -46,20 +62,7 @@ const main = async () => {
     pageContainer.classList.add("page-container");
     root?.appendChild(pageContainer);
 
-    const data = [] as BookCardData[];
-    const f = await APIClient.getBooks();
-    const fetchedData = await f.json();
-    console.log(fetchedData);
-    for (const d of fetchedData) {
-        data.push({
-            image: d.photo_url,
-            authorName: d.author_name,
-            bookTitle: d.book_name,
-        });
-    }
-
-    const mainPage = new MainPage(data);
-    mainPage.render(pageContainer);
+    renderMainPage();
 };
 
 main();

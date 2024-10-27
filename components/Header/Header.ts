@@ -10,6 +10,7 @@ interface HeaderCallbacks {
 
 class Header {
     #config;
+    #activeHeaderHref: 'main' | 'recomend' | 'best';
 
     constructor(headerCallbacks: HeaderCallbacks) {
         this.#config = {
@@ -25,6 +26,14 @@ class Header {
                 callback: headerCallbacks.bestPage,
             },
         };
+
+        this.#activeHeaderHref = 'main';
+    }
+
+    #changeActiveHeaderHref(newActive: string){
+        document.getElementById(this.#activeHeaderHref)?.classList.remove('active-header-href');
+        document.getElementById(newActive)?.classList.add('active-header-href');
+        this.#activeHeaderHref = newActive;
     }
 
     #addHrefsListeners() {
@@ -33,6 +42,7 @@ class Header {
             href?.addEventListener("click", (e) => {
                 e.preventDefault();
                 callback();
+                this.#changeActiveHeaderHref(name);
             });
         });
     }
@@ -60,6 +70,7 @@ class Header {
         parent.appendChild(header);
 
         this.#addEventListeners();
+        document.getElementById('main')?.classList.add('active-header-href');
     }
 }
 
