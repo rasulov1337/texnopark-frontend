@@ -8,12 +8,14 @@ interface HeaderCallbacks {
     mainPage: () => void;
     recomendPage: () => void;
     bestPage: () => void;
+    readBooksPage: () => void;
 }
 
 class Header {
     #config;
-    #activeHeaderHref: 'main' | 'recomend' | 'best';
+    #activeHeaderHref: "main" | "recomend" | "best";
     #isAuth: boolean;
+    #readBooksCallback;
 
     constructor(headerCallbacks: HeaderCallbacks) {
         this.#config = {
@@ -30,17 +32,20 @@ class Header {
             },
         };
 
-        this.#activeHeaderHref = 'main';
+        this.#readBooksCallback = headerCallbacks.readBooksPage;
+
+        this.#activeHeaderHref = "main";
     }
 
-    async #getSession(){
+    async #getSession() {
         this.#isAuth = await isAuthorized();
     }
-    
 
-    #changeActiveHeaderHref(newActive: string){
-        document.getElementById(this.#activeHeaderHref)?.classList.remove('active-header-href');
-        document.getElementById(newActive)?.classList.add('active-header-href');
+    #changeActiveHeaderHref(newActive: string) {
+        document
+            .getElementById(this.#activeHeaderHref)
+            ?.classList.remove("active-header-href");
+        document.getElementById(newActive)?.classList.add("active-header-href");
         this.#activeHeaderHref = newActive;
     }
 
@@ -78,18 +83,27 @@ class Header {
     #addEventListeners() {
         this.#addHrefsListeners();
         this.#addButtonEventListener();
+
+        document
+            .querySelector(".js-profile-img")
+            ?.addEventListener("click", () => {
+                this.#readBooksCallback();
+            });
     }
 
     async render(parent: HTMLElement) {
         const template = Handlebars.templates["Header.hbs"];
         const header = document.createElement("header");
         await this.#getSession();
-        console.log(this.#isAuth)
-        header.insertAdjacentHTML("afterbegin", template({isAuth: this.#isAuth}));
+        console.log(this.#isAuth);
+        header.insertAdjacentHTML(
+            "afterbegin",
+            template({ isAuth: this.#isAuth })
+        );
         parent.appendChild(header);
 
         this.#addEventListeners();
-        document.getElementById('main')?.classList.add('active-header-href');
+        document.getElementById("main")?.classList.add("active-header-href");
     }
 }
 

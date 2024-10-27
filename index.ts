@@ -7,6 +7,7 @@ import MainPage from "./components/MainPage/MainPage";
 import BestsellersPage from "./components/BestsellersPage/BestsellersPage";
 
 import { BookCardData } from "./modules/Types";
+import ReadBooksPage from "./components/ReadBooksPage/ReadBooksPage";
 
 const root = document.getElementById("root");
 const pageContainer = document.createElement("div");
@@ -18,6 +19,7 @@ const headerCallbacks = {
     bestPage: renderBestPage,
     favouritesPage: renderFavouritesPage,
     profilePage: renderProfilePage,
+    readBooksPage: renderReadBooksPage,
 };
 
 async function renderMainPage(): Promise<void> {
@@ -58,6 +60,13 @@ function renderFavouritesPage() {
 }
 
 function renderProfilePage() {}
+
+async function renderReadBooksPage() {
+    pageContainer.replaceChildren();
+    const data = await APIClient.getReadBooks();
+    const page = new ReadBooksPage(data);
+    pageContainer.appendChild(page.root);
+}
 
 const main = async () => {
     const header = new Header(headerCallbacks);
