@@ -1,24 +1,24 @@
 {
-  "name": "xakaton-frontend",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "npm run compile:templates && vite",
-    "build": "npm run compile:templates && tsc && vite build",
-    "preview": "vite preview",
-    "prestart": "npm run eslint:fix && npm run compile:templates",
-    "compile:templates": "node hbs-recompile.js",
-    "eslint:fix": "npx  eslint --fix "
-  },
-  "devDependencies": {
-    "@types/handlebars": "^4.0.40",
-    "handlebars": "^4.7.8",
-    "sass-embedded": "^1.80.4",
-    "typescript": "~5.6.2",
-    "vite": "^5.4.9"
-  },
-  "dependencies": {
-    "Handlebars": "npm:handlebars@^4.7.8"
-  }
+    "name": "xakaton-frontend",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "npm run compile:templates && vite",
+        "build": "npm run compile:templates  && vite build",
+        "preview": "vite preview",
+        "prestart": "npm run eslint:fix && npm run compile:templates",
+        "compile:templates": "node hbs-recompile.js",
+        "eslint:fix": "npx  eslint --fix "
+    },
+    "devDependencies": {
+        "@types/handlebars": "^4.0.40",
+        "handlebars": "^4.7.8",
+        "sass-embedded": "^1.80.4",
+        "typescript": "~5.6.2",
+        "vite": "^5.4.9"
+    },
+    "dependencies": {
+        "Handlebars": "npm:handlebars@^4.7.8"
+    }
 }
